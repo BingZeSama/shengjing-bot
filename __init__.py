@@ -1,9 +1,11 @@
-from nonebot import on_shell_command
+from nonebot import on_shell_command, get_driver
 from nonebot.adapters.onebot.v11 import Message, Event
 from nonebot.params import CommandArg, ShellCommandArgs
 from nonebot.rule import Namespace, ArgumentParser
 
 from src.plugins.shengjing.models import *
+
+import src.plugins.shengjing.silence_reminder
 
 
 # Define arguments of the command
@@ -143,3 +145,12 @@ async def handle_call_counts(args: Namespace = ShellCommandArgs()):
 #     args_dict = vars(args)
 #     logger.info(str(args_dict))
 #     await shengjing.send(str(args_dict))
+
+
+driver = get_driver()
+
+
+@driver.on_startup
+async def startup():
+    # 插件已在 silence_reminder.py 中被注册，因此这里无需额外操作
+    pass
