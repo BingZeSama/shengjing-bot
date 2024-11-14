@@ -5,6 +5,8 @@ from nonebot.rule import Namespace, ArgumentParser
 
 from src.plugins.shengjing.models import *
 
+import src.plugins.shengjing.custom_log
+
 
 # Define arguments of the command
 parser = ArgumentParser("sj", add_help=False)
