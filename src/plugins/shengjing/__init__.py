@@ -118,6 +118,7 @@ async def handle_call_counts(args: Namespace = ShellCommandArgs()):
 shengjing_add_img = on_fullmatch(("添加", "tj"), block=False)
 shengjing_specify = on_regex(r"^(sj|圣经)\d+")
 shengjing_remove = on_regex(r"^(删除)\d+", permission=SUPERUSER)
+shengjing_emoji_like = on_regex(r"^et")
 
 
 @shengjing_add_img.handle()
@@ -161,3 +162,10 @@ async def handle_func(reg_str: str = RegexStr()):
     id = re.search(r"\d+", reg_str)
     res = await remove_quote(id.group())
     await shengjing.send(res)
+
+
+@shengjing_emoji_like.handle()
+async def handle_func(event: Event):
+    msg_id = event.message_id
+    bot = get_bot()
+    await bot.call_api("set_msg_emoji_like", message_id=msg_id, emoji_id="124")
